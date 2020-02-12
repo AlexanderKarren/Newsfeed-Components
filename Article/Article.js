@@ -85,6 +85,20 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: 'Italian Mafia Merges With Microsoft',
+    date: 'Feb 12th, 2020',
+    firstParagraph: `The only ones I’ve had issues with noise, but this is a fun album from the UK, very excited....
+          Yeah, some records are not a perfect science but there has to be in NM condition and it was bent.
+          If you're looking for from a record store, ask if they wouldn't mind.`,
+
+    secondParagraph: `Proper tactical positioning is for those reasons I make a text post, instead of just leave (by my own experience, being able to effectively watch and target you. 
+      Well, I don't think rushing the players is amazing and feels like a murder trek across the multiverse.`,
+
+    thirdParagraph: `Also I would cut out Chesky and take a nap after you get off The Strip.
+    None are bad choices, though most in-the-know folks in the thread by saying that he stayed with us while going from Zurich to bern?
+    I also read there are no transfer desks in Frankfurt - at least a week, as I don't think of renting a car?`
   }
 ];
 
@@ -114,6 +128,7 @@ const data = [
 */
 
 const createData = (data) => {
+  let articleOpen = false;
   // Parent Container
   const article = document.createElement("div");
   article.classList.add("article");
@@ -127,10 +142,19 @@ const createData = (data) => {
   }
   const span = document.createElement("span");
   span.classList.add("expandButton");
+  span.textContent = "\u25BC";
 
   // Event Listener for span
   span.addEventListener("click", function(event) {
-    console.log("button clicked");
+    article.classList.toggle("article-open");
+    if (articleOpen === false) {
+      span.textContent = "\u25B2";
+      articleOpen = true;
+    }
+    else {
+      span.textContent = "\u25BC";
+      articleOpen = false;
+    }
   });
 
   // Add data to elements
@@ -150,3 +174,7 @@ const createData = (data) => {
 
   return article;
 }
+
+data.forEach(object => {
+  document.querySelector(".articles").appendChild(createData(object));
+});
