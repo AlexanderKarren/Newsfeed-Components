@@ -45,8 +45,17 @@ function createMenu(list) {
     ul.appendChild(newItem);
   });
   const menuButton = document.querySelector(".menu-button");
+  let menuOpen = false;
   menuButton.addEventListener("click", function(event) {
-    menu.classList.toggle("menu--open");
+    // menu.classList.toggle("menu--open");
+    if (menuOpen === false) {
+      gsap.to(menu, {width:350, duration:.5});
+      menuOpen = true;
+    }
+    else {
+      gsap.to(menu, {width:0, duration:.5});
+      menuOpen = false;
+    }
   });
   return menu;
 }

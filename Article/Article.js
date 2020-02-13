@@ -254,14 +254,11 @@ inputFields.forEach(function(element) {
 document.querySelector("button").addEventListener("click", function(event) {
   event.preventDefault();
   // const textAreas = document.querySelectorAll(".text-area");
-  let allFieldsPassed = false;
+  let allFieldsPassed = true;
   inputFields.forEach(function(element) {
     if (element.value.length <= 0) {
       allFieldsPassed = false;
       element.style.backgroundColor = "salmon";
-    }
-    else {
-      allFieldsPassed = true;
     }
   });
   console.log(allFieldsPassed);
