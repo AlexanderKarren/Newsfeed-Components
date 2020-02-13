@@ -38,13 +38,48 @@
     cursor: pointer;
     transform: translate(-50%);
     background-color: white;
+
   }
 }
 
 .article-open {
   height: 100%;
+  transition:all 2s;
 }
 
+.article-submission {
+  margin: 20px 10%;
+  form {
+    display:flex;
+    flex-direction:column;
+    input, textarea {
+      margin:3px 0;
+      border:1px solid lightgrey;
+      border-radius:5px;
+      resize:none;
+      outline:none;
+      padding:10px;
+      font-family:inherit;
+      font-size:100%;
+    }
+    button {
+      background-color:#388E3C;
+      border:1px solid white;
+      border-radius:10px;
+      font-family:inherit;
+      font-size:inherit;
+      color:white;
+      outline:none;
+      padding:10px;
+      &:hover {
+        background-color:white;
+        border:1px solid #388E3C;
+        color:#388E3C;
+        cursor:pointer;
+      }
+    }
+  }
+}
 
 
 
