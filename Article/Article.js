@@ -154,21 +154,24 @@ const createData = (data) => {
   for (let i = 0; i < 3; i++) {
     content.push(document.createElement("p"));
   }
-  const span = document.createElement("span");
-  span.classList.add("expandButton");
-  span.textContent = "\u25BC";
+  const expand = document.createElement("span");
+  expand.classList.add("expandButton");
+  expand.textContent = "\u25BC";
+  const close = document.createElement("span");
+  close.classList.add("closeButton");
+  close.textContent = "x";
 
-  // Event Listener for span
-  span.addEventListener("click", function(event) {
+  // Event Listener for expand
+  expand.addEventListener("click", function(event) {
     // article.classList.toggle("article-open");
     if (articleOpen === false) {
       gsap.to(article, {height:"auto", duration:.5});
-      span.textContent = "\u25B2";
+      expand.textContent = "\u25B2";
       articleOpen = true;
     }
     else {
       gsap.to(article, {height:50, duration:.5});
-      span.textContent = "\u25BC";
+      expand.textContent = "\u25BC";
       articleOpen = false;
     }
   });
@@ -186,7 +189,8 @@ const createData = (data) => {
   content.forEach(function(element) {
     article.appendChild(element);
   })
-  article.appendChild(span);
+  article.appendChild(expand);
+  article.appendChild(close);
 
   return article;
 }
@@ -261,7 +265,6 @@ document.querySelector("button").addEventListener("click", function(event) {
       element.style.backgroundColor = "salmon";
     }
   });
-  console.log(allFieldsPassed);
   if (allFieldsPassed === true) {
     newData = {
       title: document.querySelector("#title").value,
@@ -271,5 +274,21 @@ document.querySelector("button").addEventListener("click", function(event) {
       thirdParagraph: "",
     };
     document.querySelector(".articles").appendChild(createData(newData));
+    articles = document.querySelectorAll(".article");
+    removeElement();
   }
 });
+
+let articles = document.querySelectorAll(".article");
+
+removeElement();
+
+function removeElement() {
+  articles.forEach(function(article, i) {
+    article.lastChild.addEventListener("click", function(event) {
+      console.log(article.parentNode);
+      article.parentNode.removeChild(article);
+      articles = document.querySelectorAll(".article");
+    });
+  });
+}
