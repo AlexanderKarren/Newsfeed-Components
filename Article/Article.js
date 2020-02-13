@@ -160,12 +160,14 @@ const createData = (data) => {
 
   // Event Listener for span
   span.addEventListener("click", function(event) {
-    article.classList.toggle("article-open");
+    // article.classList.toggle("article-open");
     if (articleOpen === false) {
+      gsap.to(article, {height:"auto", duration:.5});
       span.textContent = "\u25B2";
       articleOpen = true;
     }
     else {
+      gsap.to(article, {height:50, duration:.5});
       span.textContent = "\u25BC";
       articleOpen = false;
     }
