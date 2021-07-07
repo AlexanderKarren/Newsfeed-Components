@@ -85,6 +85,34 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: 'Italian Mafia Merges With Microsoft',
+    date: 'Feb 12th, 2020',
+    firstParagraph: `The only ones I’ve had issues with noise, but this is a fun album from the UK, very excited....
+          Yeah, some records are not a perfect science but there has to be in NM condition and it was bent.
+          If you're looking for from a record store, ask if they wouldn't mind.`,
+
+    secondParagraph: `Proper tactical positioning is for those reasons I make a text post, instead of just leave (by my own experience, being able to effectively watch and target you. 
+      Well, I don't think rushing the players is amazing and feels like a murder trek across the multiverse.`,
+
+    thirdParagraph: `Also I would cut out Chesky and take a nap after you get off The Strip.
+    None are bad choices, though most in-the-know folks in the thread by saying that he stayed with us while going from Zurich to bern?
+    I also read there are no transfer desks in Frankfurt - at least a week, as I don't think of renting a car?`
+  },
+  {
+    title: `Cat Stevens' New ASMR Youtube Channel`,
+    date: 'Feb 12th, 2020',
+    firstParagraph: `It was certainly known he did not write some of it can be shown to violate that law. Not sure when the last time I tried to skip some gruesome details.
+    Easiest way since I tend to stay away from graphite shafts on irons. I find so many other things to just go past them, even if I have to see which one has the M6.
+    I cannot describe how much better their lives are getting better. Then I’m less hungry in the middle of the normal range. My partner now openly acknowledges how exercise and eating well for a week and a half and then suddenly POOF!`,
+
+    secondParagraph: `After Joker, and how bad he was in on it generally but up until the age of directors taking their own liberties with his auto-biography, which they turned into American Sniper.
+    This genocide is where the mass shooters that may have a glass eye or he may have been involved with "gun control" issues since the 70's.`,
+
+    thirdParagraph: `If this is a future change in coverage that didn't come with an open cylinder 870 using Wolf ammo.
+    What populations have never been to war I can't imagine getting a message like that. You mean the person who asked for examples aren't going to make any deeper discussion seem pedantic. You meet a lot of evidence to these claims.
+    No links, please, mods will still ban you for a long time since VX was sexy enough for the both of you, I completely overlooked those. If theres something wrong you send it in, they'll send you the link.`
   }
 ];
 
@@ -112,3 +140,155 @@ const data = [
   Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
 
 */
+
+const createData = (data) => {
+  let articleOpen = false;
+  // Parent Container
+  const article = document.createElement("div");
+  article.classList.add("article");
+  // Children
+  const title = document.createElement("h2"); // h2
+  const date = document.createElement("p"); // p.date
+  date.classList.add("date");
+  const content = []; // three paragraph elements
+  for (let i = 0; i < 3; i++) {
+    content.push(document.createElement("p"));
+  }
+  const expand = document.createElement("span");
+  expand.classList.add("expandButton");
+  expand.textContent = "\u25BC";
+  const close = document.createElement("span");
+  close.classList.add("closeButton");
+  close.textContent = "x";
+
+  // Event Listener for expand
+  expand.addEventListener("click", function(event) {
+    // article.classList.toggle("article-open");
+    if (articleOpen === false) {
+      gsap.to(article, {height:"auto", duration:.5});
+      expand.textContent = "\u25B2";
+      articleOpen = true;
+    }
+    else {
+      gsap.to(article, {height:50, duration:.5});
+      expand.textContent = "\u25BC";
+      articleOpen = false;
+    }
+  });
+
+  // Add data to elements
+  title.textContent = data.title;
+  date.textContent = data.date;
+  content[0].textContent = data.firstParagraph;
+  content[1].textContent = data.secondParagraph;
+  content[2].textContent = data.thirdParagraph;
+
+  // Append Children
+  article.appendChild(title);
+  article.appendChild(date);
+  content.forEach(function(element) {
+    article.appendChild(element);
+  })
+  article.appendChild(expand);
+  article.appendChild(close);
+
+  return article;
+}
+
+data.forEach(object => {
+  document.querySelector(".articles").appendChild(createData(object));
+});
+
+function dateString() {
+  let month = new Date();
+  month = month.getMonth();
+  month++;
+  if (month === 1) {
+    month = "Jan";
+  }
+  else if (month === 2) {
+    month = "Feb";
+  }
+  else if (month === 3) {
+    month = "March";
+  }
+  else if (month === 4) {
+    month = "April";
+  }
+  else if (month === 5) {
+    month = "May";
+  }
+  else if (month === 6) {
+    month = "June";
+  }
+  else if (month === 7) {
+    month = "July";
+  }
+  else if (month === 8) {
+    month = "Aug";
+  }
+  else if (month === 9) {
+    month = "Sep";
+  }
+  else if (month === 10) {
+    month = "Oct";
+  }
+  else if (month === 11) {
+    month = "Nov";
+  }
+  else {
+    month = "Dec";
+  }
+  let day = new Date();
+  day = day.getDate();
+
+  let year = new Date();
+  year = year.getFullYear();
+  
+  return `${month} ${day}, ${year}`;
+}
+
+const inputFields = document.querySelectorAll(".text-area");
+inputFields.forEach(function(element) {
+  element.addEventListener("input", function(event) {
+    element.style.backgroundColor = "white";
+  })
+})
+
+document.querySelector("button").addEventListener("click", function(event) {
+  event.preventDefault();
+  // const textAreas = document.querySelectorAll(".text-area");
+  let allFieldsPassed = true;
+  inputFields.forEach(function(element) {
+    if (element.value.length <= 0) {
+      allFieldsPassed = false;
+      element.style.backgroundColor = "salmon";
+    }
+  });
+  if (allFieldsPassed === true) {
+    newData = {
+      title: document.querySelector("#title").value,
+      date: dateString(),
+      firstParagraph: `${document.querySelector("#title").value} by ${document.querySelector("#name").value}`,
+      secondParagraph: document.querySelector("textarea").value,
+      thirdParagraph: "",
+    };
+    document.querySelector(".articles").appendChild(createData(newData));
+    articles = document.querySelectorAll(".article");
+    removeElement();
+  }
+});
+
+let articles = document.querySelectorAll(".article");
+
+removeElement();
+
+function removeElement() {
+  articles.forEach(function(article, i) {
+    article.lastChild.addEventListener("click", function(event) {
+      console.log(article.parentNode);
+      article.parentNode.removeChild(article);
+      articles = document.querySelectorAll(".article");
+    });
+  });
+}
